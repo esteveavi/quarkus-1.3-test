@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="warn"
+	packages="org.apache.logging.log4j.core,io.sentry.log4j2">
+	<appenders>
+
+		
+		<Console name="Console" target="SYSTEM_OUT">
+      		<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    	</Console>
+
+
+	</appenders>
+
+	<loggers>
+		<Logger name="cat.tmb.citaprevia.api" level="DEBUG"
+			additivity="false">
+			<AppenderRef ref="Console" />
+		</Logger>
+		<root level="INFO">
+			<appender-ref ref="Console" />
+		</root>
+	</loggers>
+</configuration>

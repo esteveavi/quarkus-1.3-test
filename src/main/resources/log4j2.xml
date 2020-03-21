@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="warn"
+	packages="org.apache.logging.log4j.core,io.sentry.log4j2">
+	<appenders>
+	<!-- 
+		<Console name="Console" target="SYSTEM_OUT">
+			<JSONLayout objectMessageAsJsonObject="true" eventEol="true" stacktraceAsString="true" compact="true" complete="false">
+				<KeyValuePair value="$${date:yyyy-MM-dd'T'HH:mm:ss.SSSXXX}" key="@timestamp"/>
+				<KeyValuePair value="${env:HOSTNAME}" key="serverName"/>
+				<KeyValuePair value="${env:EXECUTION_ENVIRONMENT}" key="environment"/>
+				<KeyValuePair value="${env:DOCKER_IMAGE_VERSION}" key="dockerImageVersion"/>
+				<KeyValuePair value="cita-previa-api" key="application"/>
+			</JSONLayout>
+		</Console>
+		-->
+		
+		<Console name="Console" target="SYSTEM_OUT">
+      		<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    	</Console>
+
+		<Sentry name="Sentry">
+			<ThresholdFilter onMismatch="DENY" onMatch="ACCEPT" level="WARN"/>
+		</Sentry>
+	</appenders>
+
+	<loggers>
+		<Logger name="cat.tmb.citaprevia.api" level="debug"
+			additivity="false">
+			<AppenderRef ref="Console" />
+		</Logger>
+		<root level="INFO">
+			<appender-ref ref="Console" />
+			<!-- Note that the Sentry logging threshold is overridden to the WARN 
+				level -->
+			<appender-ref ref="Sentry" level="WARN" />
+		</root>
+	</loggers>
+</configuration>
